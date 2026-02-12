@@ -2,7 +2,7 @@ from pydantic import BaseSettings
 
 class Settings(BaseSettings):
     # Database
-    DATABASE_URL: str = "postgresql://postgres:1234@localhost:5432/raj_dev"
+    DATABASE_URL: str = "postgresql://postgres:1234@db:5432/raj_dev"
 
     # # JWT
     # SECRET_KEY: str

@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: raj_dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    container_name: fastapi_app
+    depends_on:
+      - db
+    restart: always   # ⭐ ADD THIS
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://postgres:1234@db:5432/raj_dev
+
+  frontend:
+    build: ./frontend
+    container_name: react_app
+    ports:
+      - "3000:3000"
+
+volumes:
+  postgres_data:
